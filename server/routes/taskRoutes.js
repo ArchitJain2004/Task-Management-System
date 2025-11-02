@@ -16,7 +16,6 @@ import {
   permanentlyDeleteAllTasks,  // Import the restoreAllTasks function
 } from "../controllers/taskController.js";
 import { isAdminRoute, protectRoute } from "../middlewares/authMiddlewave.js";
-import { permanentDeleteTask } from "../../client/src/utils/taskservice.js";
 
 const router = express.Router();
 
