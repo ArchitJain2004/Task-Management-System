@@ -30,7 +30,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 dir('client') {
-                    sh "docker build --no-cache --build-arg REACT_APP_API_URL=http://taskmanager-backend:8800 -t ${DOCKERHUB_USER}/taskmanager-frontend:latest ."
+                    sh "docker build --no-cache --build-arg REACT_APP_API_URL=http://${EC2_HOST}:8800 -t ${DOCKERHUB_USER}/taskmanager-frontend:latest ."
                 }
             }
         }
