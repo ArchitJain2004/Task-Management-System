@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://54.174.172.26:8800/api/user"; // Replace with your backend URL
+const API_URL = "http://3.87.116.104:8800/api/user"; // Replace with your backend URL
 
 export const authApi = {
   // Login API
