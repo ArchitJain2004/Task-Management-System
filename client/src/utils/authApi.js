@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8800/api/user";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8800";
+const API_URL = `${BASE_URL}/api/user`;
 
 export const authApi = {
   // Login API
