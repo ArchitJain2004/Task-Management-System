@@ -30,7 +30,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 dir('client') {
-                    sh "docker build --build-arg REACT_APP_API_URL=http://${EC2_HOST}:8800 -t ${DOCKERHUB_USER}/taskmanager-frontend:latest ."
+                    sh "docker build --no-cache --build-arg REACT_APP_API_URL=http://taskmanager-backend:8800 -t ${DOCKERHUB_USER}/taskmanager-frontend:latest ."
                 }
             }
         }
@@ -59,16 +59,15 @@ pipeline {
                         docker rm taskmanager-backend || true
                         docker stop taskmanager-frontend || true
                         docker rm taskmanager-frontend || true
-
+                        # Create a docker network if it does not exist
+                        docker network create taskmanager-net || true
                         # Pull new images
                         docker pull ${DOCKERHUB_USER}/taskmanager-backend:latest
                         docker pull ${DOCKERHUB_USER}/taskmanager-frontend:latest
-
-                        # Run backend
-                        docker run -d -p 5000:5000 --name taskmanager-backend ${DOCKERHUB_USER}/taskmanager-backend:latest
-
-                        # Run frontend
-                        docker run -d -p 80:80 --name taskmanager-frontend ${DOCKERHUB_USER}/taskmanager-frontend:latest
+                        # Run backend on the network, exposing port 8800 to the host.
+                        docker run -d -p 8800:8800 --network taskmanager-net --name taskmanager-backend ${DOCKERHUB_USER}/taskmanager-backend:latest
+                        # Run frontend on the network, exposing its port 80 to the host.
+                        docker run -d -p 80:80 --network taskmanager-net --name taskmanager-frontend ${DOCKERHUB_USER}/taskmanager-frontend:latest
                     '
                     """
                 }
