@@ -59,6 +59,9 @@ pipeline {
                         docker rm taskmanager-backend || true
                         docker stop taskmanager-frontend || true
                         docker rm taskmanager-frontend || true
+                        # Remove old images to ensure a fresh pull
+                        docker rmi ${DOCKERHUB_USER}/taskmanager-backend:latest || true
+                        docker rmi ${DOCKERHUB_USER}/taskmanager-frontend:latest || true
                         # Create a docker network if it does not exist
                         docker network create taskmanager-net || true
                         # Pull new images
