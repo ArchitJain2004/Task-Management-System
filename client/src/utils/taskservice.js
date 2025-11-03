@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://3.87.116.104/api/tasks";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8800/api/tasks";
 
 const getToken = () => {
   const token = localStorage.getItem("token");
@@ -24,8 +24,7 @@ export const updateTask = async (taskId, updatedData) => {
   return response.data;
 };
 
-export const getTasks = async () => {
-  const token = getToken();
+export const getTasks = async (token) => {
   const response = await axios.get(`${API_URL}`, {
     headers: { Authorization: `Bearer ${token}` },
   });

@@ -1,9 +1,17 @@
 # Stage 1: Build the frontend
-FROM node:18 AS build
+FROM node:18-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
+
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 RUN npm run build
 
 # Stage 2: Serve the app with nginx
