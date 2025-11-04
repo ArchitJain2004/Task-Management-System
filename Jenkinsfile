@@ -7,7 +7,7 @@ pipeline {
         DOCKERHUB_USER = 'architjain04'                            // Your Docker Hub username
         GITHUB_CREDENTIALS = 'github-pat'                          // GitHub personal access token
         EC2_CREDENTIALS = 'ec2-ssh-key'                            // SSH key ID in Jenkins
-        EC2_HOST = 'ec2-34-227-194-181.compute-1.amazonaws.com'  // Replace with your EC2 public DNS
+        EC2_HOST = 'ec2-54-82-123-216.compute-1.amazonaws.com'  // Replace with your EC2 public DNS
     }
 
     stages {
